@@ -1,28 +1,69 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ProductCard from '../components/ProductCard.astro';
-import { SITE_DESCRIPTION } from '../consts';
+import { withBase, formatDate } from '../utils';
+import { SITE_DESCRIPTION, RESERVED_PAGE_IDS } from '../consts';
 
-const products = (await getCollection('products', ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const index = await getEntry('pages', 'index');
+if (!index) {
+  throw new Error('src/content/pages/index.md がありません。トップページの本文として必須です。');
+}
+const { title, description, updatedDate, repo, demo } = index.data;
+const { Content } = await render(index);
+
+const subPages = (
+  await getCollection('pages', ({ id, data }) => !RESERVED_PAGE_IDS.includes(id) && !data.draft)
+).sort((a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title, 'ja'));
 ---
 
-<BaseLayout>
-  <section class="hero">
-    <h1>作ったものたち</h1>
-    <p>{SITE_DESCRIPTION}</p>
-  </section>
+<BaseLayout description={description ?? SITE_DESCRIPTION}>
+  <article>
+    <header class="page-header">
+      <h1>{title}</h1>
+      {description && <p class="lead">{description}</p>}
+      {
+        updatedDate && (
+          <div class="page-meta">
+            <time datetime={updatedDate.toISOString()}>更新: {formatDate(updatedDate)}</time>
+          </div>
+        )
+      }
+      {
+        (repo || demo) && (
+          <div class="page-links">
+            {demo && (
+              <a class="button primary" href={demo} target="_blank" rel="noopener noreferrer">
+                デモを見る
+              </a>
+            )}
+            {repo && (
+              <a class="button secondary" href={repo} target="_blank" rel="noopener noreferrer">
+                GitHub リポジトリ
+              </a>
+            )}
+          </div>
+        )
+      }
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
   {
-    products.length > 0 ? (
-      <ul class="product-grid">
-        {products.map((product) => (
-          <ProductCard product={product} />
-        ))}
-      </ul>
-    ) : (
-      <p class="empty-state">まだ記事がありません。src/content/products/ に Markdown を追加してください。</p>
+    subPages.length > 0 && (
+      <section class="subpages" aria-labelledby="subpages-heading">
+        <h2 id="subpages-heading">詳細ページ</h2>
+        <ul class="card-grid">
+          {subPages.map((page) => (
+            <li class="card">
+              <h3>
+                <a href={withBase(`/${page.id}/`)}>{page.data.title}</a>
+              </h3>
+              {page.data.description && <p class="description">{page.data.description}</p>}
+            </li>
+          ))}
+        </ul>
+      </section>
     )
   }
 </BaseLayout>

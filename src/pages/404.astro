@@ -4,11 +4,11 @@ import { withBase } from '../utils';
 ---
 
 <BaseLayout title="ページが見つかりません">
-  <section class="hero">
+  <section class="page-header">
     <h1>404 - ページが見つかりません</h1>
-    <p>お探しのページは移動または削除された可能性があります。</p>
+    <p class="lead">お探しのページは移動または削除された可能性があります。</p>
   </section>
-  <p>
-    <a class="back-link" href={withBase('/')}>← トップページに戻る</a>
-  </p>
+  <div class="prose">
+    <a class="back-link" href={withBase('/')}>← トップに戻る</a>
+  </div>
 </BaseLayout>

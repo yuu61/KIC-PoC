@@ -1,0 +1,59 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase, formatDate } from '../utils';
+import { RESERVED_PAGE_IDS } from '../consts';
+
+export async function getStaticPaths() {
+  const pages = await getCollection(
+    'pages',
+    ({ id, data }) => !RESERVED_PAGE_IDS.includes(id) && !data.draft
+  );
+  return pages.map((page) => ({
+    params: { slug: page.id },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+const { title, description, updatedDate, repo, demo } = page.data;
+const { Content } = await render(page);
+---
+
+<BaseLayout title={title} description={description}>
+  <article>
+    <header class="page-header">
+      <h1>{title}</h1>
+      {description && <p class="lead">{description}</p>}
+      {
+        updatedDate && (
+          <div class="page-meta">
+            <time datetime={updatedDate.toISOString()}>更新: {formatDate(updatedDate)}</time>
+          </div>
+        )
+      }
+      {
+        (repo || demo) && (
+          <div class="page-links">
+            {demo && (
+              <a class="button primary" href={demo} target="_blank" rel="noopener noreferrer">
+                デモを見る
+              </a>
+            )}
+            {repo && (
+              <a class="button secondary" href={repo} target="_blank" rel="noopener noreferrer">
+                GitHub リポジトリ
+              </a>
+            )}
+          </div>
+        )
+      }
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+    <div class="prose">
+      <a class="back-link" href={withBase('/')}>← トップに戻る</a>
+    </div>
+  </article>
+</BaseLayout>
