@@ -62,7 +62,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-img {
+img,
+video {
   max-width: 100%;
   height: auto;
 }
@@ -374,7 +375,8 @@ pre {
   background: var(--color-code-bg);
 }
 
-.prose img {
+.prose img,
+.prose video {
   border-radius: 10px;
 }
 

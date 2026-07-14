@@ -26,3 +26,11 @@ pnpm-debug.log*
 # ローカル資料(公開リポジトリに含めない)
 *.odp
 *.pptx
+# Claude Code のローカル状態
+.claude/
+
+# 動画原本・アイキャッチ素材(公開用に加工したものだけ public/ に置く)
+/pac.mp4
+/eyecatch-*.png
+/eyecatch.html
+/tukushityann.png
