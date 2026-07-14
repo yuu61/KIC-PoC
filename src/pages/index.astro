@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { SITE_DESCRIPTION } from '../consts';
+
+const products = (await getCollection('products', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout>
+  <section class="hero">
+    <h1>作ったものたち</h1>
+    <p>{SITE_DESCRIPTION}</p>
+  </section>
+  {
+    products.length > 0 ? (
+      <ul class="product-grid">
+        {products.map((product) => (
+          <ProductCard product={product} />
+        ))}
+      </ul>
+    ) : (
+      <p class="empty-state">まだ記事がありません。src/content/products/ に Markdown を追加してください。</p>
+    )
+  }
+</BaseLayout>
