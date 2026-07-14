@@ -13,7 +13,7 @@
   --shadow-card-hover: 0 4px 12px rgb(0 0 0 / 0.1);
   --radius: 12px;
   --content-width: 72rem;
-  --prose-width: 44rem;
+  --prose-width: 54rem;
 }
 
 @media (prefers-color-scheme: dark) {
