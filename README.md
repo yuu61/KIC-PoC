@@ -3,7 +3,7 @@
 1つのプロダクトを解説するための静的サイト。本文は Markdown で書き、
 [Astro](https://astro.build/) でビルドして GitHub Pages にホストしています。
 
-**公開 URL:** https://yuu61.github.io/KIC-PoC/
+**公開 URL:** https://kic-poc.github.tukushityann.net/
 
 ## サイトの書き方
 
@@ -20,7 +20,7 @@
 長くなる話題はページを分けられます。
 
 1. `src/content/pages/_template.md` をコピーして `src/content/pages/` に新しい `.md` を作る
-   - ファイル名がそのまま URL になる(例: `architecture.md` → `/KIC-PoC/architecture/`)
+   - ファイル名がそのまま URL になる(例: `architecture.md` → `/architecture/`)
    - 先頭が `_` のファイルはビルド対象外(テンプレート置き場)
 2. frontmatter を記入して本文を書く
 
@@ -41,7 +41,7 @@
 
 ```sh
 npm install        # 依存関係のインストール(初回のみ)
-npm run dev        # 開発サーバー http://localhost:4321/KIC-PoC/
+npm run dev        # 開発サーバー http://localhost:4321/
 npm run build      # 本番ビルド(dist/ に出力)
 npm run preview    # ビルド結果のプレビュー
 ```

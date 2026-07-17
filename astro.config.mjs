@@ -3,6 +3,5 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://yuu61.github.io',
-  base: '/KIC-PoC',
+  site: 'https://kic-poc.github.tukushityann.net',
 });

@@ -17,8 +17,8 @@ updatedDate: 2026-07-14
 
 これは体感ではなく実測です。同じ場所・同じクライアントで、既存LAN(左)と本PoC(右)のキャプチャを並べると差は一目瞭然です。
 
-<video controls muted playsinline preload="metadata" poster="/KIC-PoC/images/pac-poster.jpg" width="1920" height="1080">
-  <source src="/KIC-PoC/videos/pac.mp4" type="video/mp4" />
+<video controls muted playsinline preload="metadata" poster="/images/pac-poster.jpg" width="1920" height="1080">
+  <source src="/videos/pac.mp4" type="video/mp4" />
 </video>
 
 フィルタ表示の割合(=無関係なパケットの割合)は、既存LANが 73〜79% で推移するのに対し、PoC 側は 7〜8% に収まっています。
@@ -59,4 +59,4 @@ SSID で接続制御をするべきではありません。部屋ごとに SSID 
 
 ---
 
-これらの問題に対する PoC の設計は [トップページの対応表](/KIC-PoC/)、[無線設計とローミング](/KIC-PoC/wireless/)、[L2/L3 設計・DNS・オブザーバビリティ](/KIC-PoC/infra/) を参照してください。
+これらの問題に対する PoC の設計は [トップページの対応表](/)、[無線設計とローミング](/wireless/)、[L2/L3 設計・DNS・オブザーバビリティ](/infra/) を参照してください。
